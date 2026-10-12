@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="138" viewBox="0 0 960 138" role="img" aria-labelledby="title desc">
+  <title id="title">Connect with Iván Baltanás on LinkedIn</title>
+  <desc id="desc">Connect with Iván Baltanás on LinkedIn. Original engineering-console artwork for theblondcoder.</desc>
+  <style>
+    text{font-family:Consolas,"Liberation Mono",monospace;letter-spacing:0}
+    .fg{fill:#eff7ee}.muted{fill:#a3b3a6}.lime{fill:#c6f879}.pink{fill:#ff80ab}.cyan{fill:#7cdee3}
+    .panel{fill:#171d18;stroke:#354438}.wire{fill:none;stroke:#354438;stroke-width:2}
+    .signal{fill:none;stroke:#c6f879;stroke-width:2;stroke-dasharray:5 12;animation:flow 5s linear infinite}
+    .cursor{animation:blink 1.6s steps(2,end) infinite}.pulse{animation:pulse 3s ease-in-out infinite}
+    .bar{transform-box:fill-box;transform-origin:center bottom;animation:grow 1s ease-out both}
+    @keyframes grow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+    @keyframes flow{to{stroke-dashoffset:-68}}@keyframes blink{50%{opacity:0}}@keyframes pulse{50%{opacity:.4}}
+    @media(prefers-reduced-motion:reduce){.signal,.cursor,.pulse,.bar,.scan{animation:none}}
+  </style>
+  <rect width="960" height="138" rx="4" fill="#101410"/>
+  <path d="M20 1H940" class="wire" /><text x="20" y="36" font-size="14" class="pink" >NEXT CONNECTION</text><text x="20" y="76" font-size="32" class="fg" font-weight="700">Let&apos;s build something useful.</text><text x="20" y="113" font-size="18" class="cyan" >LinkedIn / Iván Baltanás</text><text x="936" y="114" font-size="26" class="lime" >↗</text>
+</svg>

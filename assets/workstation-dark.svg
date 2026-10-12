@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="368" viewBox="0 0 960 368" role="img" aria-labelledby="title desc">
+  <title id="title">Iván Baltanás | Web developer, apps, systems and cybersecurity</title>
+  <desc id="desc">Iván Baltanás | Web developer, apps, systems and cybersecurity. Original engineering-console artwork for theblondcoder.</desc>
+  <style>
+    text{font-family:Consolas,"Liberation Mono",monospace;letter-spacing:0}
+    .fg{fill:#eff7ee}.muted{fill:#a3b3a6}.lime{fill:#c6f879}.pink{fill:#ff80ab}.cyan{fill:#7cdee3}
+    .panel{fill:#171d18;stroke:#354438}.wire{fill:none;stroke:#354438;stroke-width:2}
+    .signal{fill:none;stroke:#c6f879;stroke-width:2;stroke-dasharray:5 12;animation:flow 5s linear infinite}
+    .cursor{animation:blink 1.6s steps(2,end) infinite}.pulse{animation:pulse 3s ease-in-out infinite}
+    .bar{transform-box:fill-box;transform-origin:center bottom;animation:grow 1s ease-out both}
+    @keyframes grow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+    @keyframes flow{to{stroke-dashoffset:-68}}@keyframes blink{50%{opacity:0}}@keyframes pulse{50%{opacity:.4}}
+    @media(prefers-reduced-motion:reduce){.signal,.cursor,.pulse,.bar,.scan{animation:none}}
+  </style>
+  <rect width="960" height="368" rx="4" fill="#101410"/>
+  <rect x="1" y="1" width="958" height="366" rx="4" class="wire" /><text x="24" y="30" font-size="15" class="muted" >BC / PERSONAL WORKSTATION</text><text x="936" y="30" font-size="13" class="lime" text-anchor="end">PROFILE.SYS</text><path d="M24 48H936" class="wire" /><text x="28" y="84" font-size="18" class="lime" >~/blondcoder $ whoami</text><text x="28" y="146" font-size="48" class="fg" font-weight="700">IVÁN BALTANÁS</text><text x="30" y="183" font-size="21" class="fg" >Web developer &amp; ICT student</text><text x="30" y="229" font-size="18" class="muted" >&gt; build useful things</text><text x="30" y="258" font-size="18" class="muted" >&gt; understand the internals</text><rect x="330" y="242" width="11" height="19" class="lime cursor"/><path d="M710.6666666666666 81v13 M710.6666666666666 236v13 M674 117.66666666666667h13 M829 117.66666666666667h13" class="wire" /><path d="M734.3333333333334 81v13 M734.3333333333334 236v13 M674 141.33333333333334h13 M829 141.33333333333334h13" class="wire" /><path d="M758 81v13 M758 236v13 M674 165h13 M829 165h13" class="wire" /><path d="M781.6666666666666 81v13 M781.6666666666666 236v13 M674 188.66666666666669h13 M829 188.66666666666669h13" class="wire" /><path d="M805.3333333333334 81v13 M805.3333333333334 236v13 M674 212.33333333333334h13 M829 212.33333333333334h13" class="wire" /><rect x="687" y="94" width="142" height="142" rx="4" class="panel" /><rect x="699" y="106" width="118" height="118" rx="4" class="panel" />
+    <text x="758" y="179" font-size="54" class="lime" text-anchor="middle" font-weight="700">BC</text>
+    <text x="758" y="210" font-size="11" class="muted" text-anchor="middle">BUILD / LEARN</text><path d="M674 118H605V89H561 M842 118H891V84 M674 210H622V262H578 M842 210H895V262H918" class="wire" /><path d="M674 118H605V89H561 M842 210H895V262H918" class="signal" /><text x="569" y="80" font-size="13" class="lime" >WEB</text><text x="850" y="76" font-size="13" class="pink" >APPS</text><text x="595" y="284" font-size="13" class="cyan" >SYSTEMS</text><text x="853" y="284" font-size="13" class="muted" >SECURITY</text><path d="M24 307H936" class="wire" /><text x="30" y="341" font-size="16" class="lime" >01 / WEB DEVELOPMENT</text><text x="343" y="341" font-size="16" class="pink" >02 / APPS &amp; AUTOMATION</text><text x="664" y="341" font-size="16" class="cyan" >03 / SYSTEMS &amp; SECURITY</text>
+</svg>

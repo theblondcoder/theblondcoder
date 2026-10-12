@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="460" viewBox="0 0 480 460" role="img" aria-labelledby="title desc">
+  <title id="title">Iván Baltanás | Web developer, apps, systems and cybersecurity</title>
+  <desc id="desc">Iván Baltanás | Web developer, apps, systems and cybersecurity. Original engineering-console artwork for theblondcoder.</desc>
+  <style>
+    text{font-family:Consolas,"Liberation Mono",monospace;letter-spacing:0}
+    .fg{fill:#17241c}.muted{fill:#526657}.lime{fill:#416718}.pink{fill:#b52b5e}.cyan{fill:#126773}
+    .panel{fill:#edf3eb;stroke:#c1d0c0}.wire{fill:none;stroke:#c1d0c0;stroke-width:2}
+    .signal{fill:none;stroke:#416718;stroke-width:2;stroke-dasharray:5 12;animation:flow 5s linear infinite}
+    .cursor{animation:blink 1.6s steps(2,end) infinite}.pulse{animation:pulse 3s ease-in-out infinite}
+    .bar{transform-box:fill-box;transform-origin:center bottom;animation:grow 1s ease-out both}
+    @keyframes grow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+    @keyframes flow{to{stroke-dashoffset:-68}}@keyframes blink{50%{opacity:0}}@keyframes pulse{50%{opacity:.4}}
+    @media(prefers-reduced-motion:reduce){.signal,.cursor,.pulse,.bar,.scan{animation:none}}
+  </style>
+  <rect width="480" height="460" rx="4" fill="#f8fbf7"/>
+  <rect x="1" y="1" width="478" height="458" rx="4" class="wire" /><text x="24" y="30" font-size="14" class="muted" >BC / PERSONAL WORKSTATION</text><text x="456" y="30" font-size="13" class="lime" text-anchor="end">PROFILE.SYS</text><path d="M24 48H456" class="wire" /><text x="28" y="84" font-size="17" class="lime" >~/blondcoder $ whoami</text><text x="28" y="137" font-size="46" class="fg" font-weight="700">IVÁN</text><text x="28" y="187" font-size="46" class="fg" font-weight="700">BALTANÁS</text><text x="28" y="224" font-size="18" class="fg" >Web developer &amp; ICT student</text><text x="28" y="270" font-size="17" class="muted" >&gt; build useful things</text><text x="28" y="298" font-size="17" class="muted" >&gt; understand the internals</text><rect x="308" y="285" width="10" height="17" class="lime cursor"/><path d="M28 330H452" class="wire" /><text x="28" y="362" font-size="17" class="lime" >01  WEB DEVELOPMENT</text><text x="28" y="396" font-size="17" class="pink" >02  APPS &amp; AUTOMATION</text><text x="28" y="430" font-size="17" class="cyan" >03  SYSTEMS &amp; SECURITY</text><path d="M366.3333333333333 78v13 M366.3333333333333 183v13 M338 106.33333333333333h13 M443 106.33333333333333h13" class="wire" /><path d="M381.6666666666667 78v13 M381.6666666666667 183v13 M338 121.66666666666667h13 M443 121.66666666666667h13" class="wire" /><path d="M397 78v13 M397 183v13 M338 137h13 M443 137h13" class="wire" /><path d="M412.3333333333333 78v13 M412.3333333333333 183v13 M338 152.33333333333334h13 M443 152.33333333333334h13" class="wire" /><path d="M427.6666666666667 78v13 M427.6666666666667 183v13 M338 167.66666666666669h13 M443 167.66666666666669h13" class="wire" /><rect x="351" y="91" width="92" height="92" rx="4" class="panel" /><rect x="363" y="103" width="68" height="68" rx="4" class="panel" />
+    <text x="397" y="151" font-size="34" class="lime" text-anchor="middle" font-weight="700">BC</text>
+    <text x="397" y="157" font-size="7" class="muted" text-anchor="middle">BUILD / LEARN</text>
+</svg>

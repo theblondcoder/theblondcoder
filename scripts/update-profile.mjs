@@ -1,46 +1,42 @@
 import { readFile, writeFile } from "node:fs/promises";
+import { activity, heatmap } from "./visuals.mjs";
+import { publicRepos, snapshot, replaceSnapshot } from "./public-data.mjs";
+import { fetchCalendar } from "./contributions.mjs";
 
-const username = "theblondcoder";
-const featuredRepos = new Set([
-  "StarStats",
-  "alarm-smart-tech-public",
-  "training-diary-app-public",
-]);
-const start = "<!-- PUBLIC-ACTIVITY:START -->";
-const end = "<!-- PUBLIC-ACTIVITY:END -->";
-
-const response = await fetch(
-  `https://api.github.com/users/${username}/events/public?per_page=100`,
-  {
+async function publicApi(endpoint) {
+  // No Authorization header: this reader has no access to private repositories.
+  const response = await fetch(`https://api.github.com/${endpoint}`, {
     headers: {
       Accept: "application/vnd.github+json",
       "X-GitHub-Api-Version": "2022-11-28",
       "User-Agent": "theblondcoder-profile-updater",
     },
-  },
-);
-
-if (!response.ok) {
-  throw new Error(`GitHub public events API returned ${response.status}`);
+    signal: AbortSignal.timeout(30000),
+  });
+  if (!response.ok) throw new Error(`GitHub public API returned ${response.status}`);
+  const data = await response.json();
+  if (!Array.isArray(data)) throw new Error("Unexpected public API response");
+  return data;
 }
 
-const events = await response.json();
-const event = events.find(
-  (item) =>
-    featuredRepos.has(item.repo?.name?.split("/").at(-1)) &&
-    ["PushEvent", "CreateEvent", "ReleaseEvent"].includes(item.type),
-);
-
-const body = event
-  ? `\n## Public Activity\n\nLatest public update: **${event.type.replace("Event", "")}** in [${event.repo.name}](https://github.com/${event.repo.name}) · ${new Date(event.created_at).toISOString().slice(0, 10)}.\n`
-  : "\n## Public Activity\n\nNo recent public updates to the featured projects.\n";
-
-const path = "README.md";
+const allRepos = [];
+for (let page = 1; ; page++) {
+  const batch = await publicApi(`users/theblondcoder/repos?type=owner&per_page=100&page=${page}`);
+  allRepos.push(...batch);
+  if (batch.length < 100) break;
+  if (page === 20) throw new Error("Public repository pagination limit reached");
+}
+const repos = publicRepos(allRepos);
+const events = await publicApi("users/theblondcoder/events/public?per_page=100");
+const calendar = await fetchCalendar();
+const path = new URL("../README.md", import.meta.url);
 const source = await readFile(path, "utf8");
-const expression = new RegExp(`${start}[\\s\\S]*?${end}`);
-
-if (!expression.test(source)) {
-  throw new Error("Could not find the public activity markers in README.md");
+const result = replaceSnapshot(source, snapshot(events, repos, calendar));
+for (const theme of ["dark", "light"]) {
+  for (const mobile of [false, true]) {
+    const suffix = `${mobile ? "mobile-" : ""}${theme}.svg`;
+    await writeFile(new URL(`../assets/activity-${suffix}`, import.meta.url), activity(theme, calendar, mobile));
+    await writeFile(new URL(`../assets/activity-grid-${suffix}`, import.meta.url), heatmap(theme, calendar, mobile));
+  }
 }
-
-await writeFile(path, source.replace(expression, `${start}${body}${end}`));
+await writeFile(path, result);

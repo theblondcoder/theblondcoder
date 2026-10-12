@@ -1,0 +1,11 @@
+{
+  "private": true,
+  "scripts": {
+    "test": "node --test scripts/profile.test.mjs",
+    "render": "node scripts/render-assets.mjs",
+    "update": "node scripts/update-profile.mjs"
+  },
+  "dependencies": {
+    "parse5": "8.0.1"
+  }
+}
