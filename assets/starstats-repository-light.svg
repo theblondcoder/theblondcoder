@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="76" viewBox="0 0 360 76" role="img" aria-labelledby="title desc">
+  <title id="title">Explore repository: STARSTATS on GitHub</title>
+  <desc id="desc">Explore repository: STARSTATS on GitHub. Original engineering-console artwork for theblondcoder.</desc>
+  <style>
+    text{font-family:Consolas,"Liberation Mono",monospace;letter-spacing:0}
+    .fg{fill:#17241c}.muted{fill:#526657}.lime{fill:#416718}.pink{fill:#b52b5e}.cyan{fill:#126773}
+    .panel{fill:#edf3eb;stroke:#c1d0c0}.wire{fill:none;stroke:#c1d0c0;stroke-width:2}
+    .signal{fill:none;stroke:#416718;stroke-width:2;stroke-dasharray:5 12;animation:flow 5s linear infinite}
+    .cursor{animation:blink 1.6s steps(2,end) infinite}.pulse{animation:pulse 3s ease-in-out infinite}
+    .bar{transform-box:fill-box;transform-origin:center bottom;animation:grow 1s ease-out both}
+    @keyframes grow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+    @keyframes flow{to{stroke-dashoffset:-68}}@keyframes blink{50%{opacity:0}}@keyframes pulse{50%{opacity:.4}}
+    @media(prefers-reduced-motion:reduce){.signal,.cursor,.pulse,.bar,.scan{animation:none}}
+  </style>
+  <rect width="360" height="76" rx="4" fill="#f8fbf7"/>
+  <rect x="1" y="1" width="358" height="74" rx="4" fill="#416718"/><g transform="translate(20,26)" fill="none" stroke="#f8fbf7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/></g><text x="62" y="32" font-size="18" fill="#f8fbf7" font-weight="700">Explore repository</text><text x="62" y="53" font-size="11" fill="#f8fbf7">STARSTATS / SOURCE CODE</text><g transform="translate(315,26)" fill="none" stroke="#f8fbf7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></g>
+</svg>

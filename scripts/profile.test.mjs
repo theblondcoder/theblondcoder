@@ -1,9 +1,10 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { publicRepos, publicSignals, snapshot, replaceSnapshot } from "./public-data.mjs";
-import { activity, heatmap, escapeXml, project, wrapText } from "./visuals.mjs";
+import { activity, heatmap, escapeXml, project, wrapText, toolchain, repositoryButton } from "./visuals.mjs";
 import { parseCalendar, calendarStats } from "./contributions.mjs";
 import { readFile, access } from "node:fs/promises";
+import { parseFragment } from "parse5";
 
 const repo = (name, extra = {}) => ({ name, private: false, fork: false, owner: { login: "theblondcoder" }, pushed_at: "2026-10-10T10:00:00Z", ...extra });
 const event = (name, extra = {}) => ({ public: true, type: "PushEvent", repo: { name: `theblondcoder/${name}` }, created_at: "2026-10-10T10:00:00Z", ...extra });
@@ -53,7 +54,7 @@ test("invalid repo names and inherited event types are rejected", () => {
 test("all README graphics exist locally in all theme and mobile variants", async () => {
   const source = await readFile(new URL("../README.md", import.meta.url), "utf8");
   const files = [...new Set([...source.matchAll(/(?:src|srcset)="(\.\/assets\/[^\"]+)"/g)].map((m) => m[1]))];
-  assert.equal(files.length, 36);
+  assert.equal(files.length, 42);
   for (const file of files) {
     const url = new URL(`../${file}`, import.meta.url);
     await access(url);
@@ -105,4 +106,67 @@ test("project stories use bounded lines and truthful development status", () => 
     }
   }
   assert.match(project("light", "diary"), /Still in development/);
+});
+
+function elements(node) {
+  return [node, ...(node.childNodes || []).flatMap(elements)];
+}
+const attributes = (node) => Object.fromEntries((node.attrs || []).map(({ name, value }) => [name, value]));
+
+test("each technology label shares its icon centre in both layouts and themes", async () => {
+  const icons = JSON.parse(await readFile(new URL("../assets/brand-icons.json", import.meta.url), "utf8"));
+  for (const theme of ["dark", "light"]) {
+    for (const mobile of [false, true]) {
+      const nodes = elements(parseFragment(toolchain(theme, icons, mobile))).map(attributes);
+      const marks = nodes.filter((a) => a["data-tech"]);
+      assert.equal(marks.length, 20);
+      for (const mark of marks) {
+        const label = nodes.find((a) => a["data-label-for"] === mark["data-tech"]);
+        const position = /translate\((\d+),(\d+)\)/.exec(mark.transform);
+        assert.ok(label, mark["data-tech"]);
+        assert.equal(Number(label.x), Number(position[1]) + 18);
+        assert.equal(Number(label.y), Number(position[2]) + (mobile ? 58 : 61));
+        assert.equal(label["text-anchor"], "middle");
+      }
+    }
+  }
+});
+
+test("highlighted repository links retain the correct destinations and accessible names", async () => {
+  const source = await readFile(new URL("../README.md", import.meta.url), "utf8");
+  const links = elements(parseFragment(source)).filter((n) => n.tagName === "a" && attributes(n).title);
+  assert.deepEqual(links.map((n) => attributes(n).href), [
+    "https://github.com/theblondcoder/StarStats",
+    "https://github.com/theblondcoder/alarm-smart-tech-public",
+    "https://github.com/theblondcoder/training-diary-app-public",
+  ]);
+  for (const link of links) {
+    assert.ok(elements(link).some((n) => n.tagName === "img" && attributes(n).alt));
+  }
+  for (const key of ["starstats", "fire", "diary"]) {
+    for (const theme of ["dark", "light"]) {
+      assert.match(repositoryButton(theme, key), /viewBox="0 0 360 76"/);
+      assert.match(repositoryButton(theme, key), /SOURCE CODE/);
+    }
+  }
+});
+
+test("calendar replay highlights only the latest real active days in chronological order", () => {
+  const days = Array.from({ length: 16 }, (_, i) => ({ date: `2026-10-${String(i + 1).padStart(2, "0")}`, count: i === 7 ? 0 : i + 1 }));
+  const history = calendarStats(days);
+  const expected = days.filter((d) => d.count > 0).slice(-12);
+  for (const theme of ["dark", "light"]) {
+    for (const mobile of [false, true]) {
+      const output = heatmap(theme, history, mobile);
+      const frames = elements(parseFragment(output)).map(attributes).filter((a) => a["data-replay-date"]);
+      assert.deepEqual(frames.map((a) => ({ date: a["data-replay-date"], count: Number(a["data-replay-count"]) })), expected);
+      assert.equal(frames.filter((a) => a.class.includes("replay-latest")).length, 1);
+      assert.match(output, /prefers-reduced-motion:reduce/);
+      assert.match(output, /\.replay-frame\{animation:none;opacity:0!important\}/);
+      assert.doesNotMatch(output, /@keyframes sweep|animated scan line/);
+    }
+  }
+  const empty = heatmap("dark", calendarStats([{ date: "2026-10-01", count: 0 }]));
+  assert.match(empty, /No contributions in this period/);
+  assert.doesNotMatch(empty, /data-replay-date/);
 });

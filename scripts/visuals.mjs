@@ -85,10 +85,10 @@ export function toolchain(theme, icons, mobile = false) {
   const w = mobile ? 480 : 960;
   const rowH = mobile ? 230 : 142;
   const groups = [
-    { name: "01 / INTERFACE", hint: "React · TypeScript · JavaScript · Tailwind · PHP", ids: ["react", "typescript", "javascript", "tailwindcss", "php"], accent: "lime" },
-    { name: "02 / APIs + DATA", hint: "Node.js · Express · PostgreSQL · MySQL · Prisma", ids: ["nodedotjs", "express", "postgresql", "mysql", "prisma"], accent: "cyan" },
-    { name: "03 / APPS + CODE", hint: "Kotlin · Android · Python · .NET · C++", ids: ["kotlin", "android", "python", "dotnet", "cplusplus"], accent: "pink" },
-    { name: "04 / SYSTEMS", hint: "Linux · Docker · Git · Wireshark · Arduino", ids: ["linux", "docker", "git", "wireshark", "arduino"], accent: "lime" },
+    { name: "01 / INTERFACE", names: ["React", "TypeScript", "JavaScript", "Tailwind", "PHP"], ids: ["react", "typescript", "javascript", "tailwindcss", "php"], accent: "lime" },
+    { name: "02 / APIs + DATA", names: ["Node.js", "Express", "PostgreSQL", "MySQL", "Prisma"], ids: ["nodedotjs", "express", "postgresql", "mysql", "prisma"], accent: "cyan" },
+    { name: "03 / APPS + CODE", names: ["Kotlin", "Android", "Python", ".NET", "C++"], ids: ["kotlin", "android", "python", "dotnet", "cplusplus"], accent: "pink" },
+    { name: "04 / SYSTEMS", names: ["Linux", "Docker", "Git", "Wireshark", "Arduino"], ids: ["linux", "docker", "git", "wireshark", "arduino"], accent: "lime" },
   ];
   let body = "";
   groups.forEach((g, i) => {
@@ -103,16 +103,10 @@ export function toolchain(theme, icons, mobile = false) {
       if (!icon) throw new Error(`Missing brand icon: ${id}`);
       const x = mobile ? (j < 3 ? 35 + j * 150 : 110 + (j - 3) * 150) : startX + j * gap;
       const iy = mobile ? y + (j < 3 ? 52 : 142) : iconY;
-      body += `<g transform="translate(${x},${iy}) scale(1.5)"><path d="${icon.path}" class="${g.accent}"/></g>`;
+      body += `<g data-tech="${id}" transform="translate(${x},${iy}) scale(1.5)"><path d="${icon.path}" class="${g.accent}"/></g>`;
+      body += text(x + 18, iy + (mobile ? 58 : 61), g.names[j], mobile ? 17 : 16, mobile ? "fg" : "muted", `text-anchor="middle" data-label-for="${id}"`);
     });
-    if (mobile) {
-      const names = g.hint.split(" · ");
-      names.forEach((name, j) => {
-        const x = j < 3 ? 53 + j * 150 : 128 + (j - 3) * 150;
-        body += text(x, y + (j < 3 ? 110 : 200), name, 17, "fg", 'text-anchor="middle"');
-      });
-    } else {
-      body += text(260, y + 118, g.hint, 16, "muted");
+    if (!mobile) {
       body += text(20, y + 76, ["Browser-facing", "Server-side", "Beyond the web", "Under the hood"][i], 14, "muted");
     }
   });
@@ -215,6 +209,20 @@ export function project(theme, key, mobile = false) {
   return svg(theme, w, story.height, `${p.title}: ${p.tag}. ${projectStories[key].map(([label, paragraph]) => `${label}: ${paragraph}`).join(" ")}`, body + story.body);
 }
 
+export function repositoryButton(theme, key) {
+  const p = projectSpecs[key];
+  const t = themes[theme];
+  const label = key === "diary" ? "Follow the build" : "Explore repository";
+  const caption = key === "fire" ? "SMART FIRE / SOURCE CODE" : `${p.title} / SOURCE CODE`;
+  let body = `<rect x="1" y="1" width="358" height="74" rx="4" fill="${t[p.color]}"/>`;
+  // CodeXml and ArrowUpRight from Lucide (ISC); see assets/LUCIDE-LICENSE.
+  body += `<g transform="translate(20,26)" fill="none" stroke="${t.bg}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/></g>`;
+  body += `<text x="62" y="32" font-size="18" fill="${t.bg}" font-weight="700">${label}</text>`;
+  body += `<text x="62" y="53" font-size="11" fill="${t.bg}">${caption}</text>`;
+  body += `<g transform="translate(315,26)" fill="none" stroke="${t.bg}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></g>`;
+  return svg(theme, 360, 76, `${label}: ${p.title} on GitHub`, body);
+}
+
 export function activity(theme, calendar, mobile = false) {
   const w = mobile ? 480 : 960;
   const h = mobile ? 490 : 350;
@@ -254,7 +262,7 @@ export function heatmap(theme, calendar, mobile = false) {
   const step = mobile ? 8 : 16;
   const x0 = (w - calendar.weeks.length * step) / 2;
   const y0 = 58;
-  let body = text(24, 29, "A YEAR, ONE DAY AT A TIME", mobile ? 13 : 15, "muted");
+  let body = text(24, 29, "CONTRIBUTION REPLAY", mobile ? 13 : 15, "muted");
   const firstWeek = Date.parse(calendar.weeks[0].date);
   const max = Math.max(1, ...calendar.days.map((d) => d.count));
   calendar.days.forEach((day) => {
@@ -263,11 +271,32 @@ export function heatmap(theme, calendar, mobile = false) {
     const opacity = day.count ? 0.3 + 0.7 * Math.sqrt(day.count / max) : 1;
     body += `<rect x="${x0 + column * step}" y="${y0 + row * step}" width="${size}" height="${size}" rx="2" fill="${themes[theme][day.count ? "lime" : "line"]}" opacity="${opacity.toFixed(2)}"><title>${day.date}: ${day.count} contributions</title></rect>`;
   });
-  const span = (calendar.weeks.length - 1) * step;
-  body += `<style>.scan{animation:sweep 14s steps(${calendar.weeks.length},end) infinite}@keyframes sweep{to{transform:translateX(${span}px)}}</style>`;
-  body += `<rect class="scan" x="${x0 - 2}" y="${y0 - 4}" width="${size + 4}" height="${step * 6 + size + 8}" rx="3" fill="none" stroke="${themes[theme].cyan}" stroke-width="1.5" opacity=".8"/>`;
-  body += text(24, mobile ? 146 : 194, "PUBLICLY VISIBLE COUNTS / NO PRIVATE REPO DETAILS", mobile ? 11 : 12, "muted");
-  return svg(theme, w, mobile ? 166 : 214, "Daily contribution calendar from the public GitHub profile, with an animated scan line. No private repository details.", body);
+  const replay = calendar.days.filter((day) => day.count > 0).slice(-12);
+  const captionY = mobile ? 150 : 200;
+  body += text(w - 24, 29, `${replay.length} RECENT ACTIVE DAYS`, mobile ? 11 : 13, "muted", 'text-anchor="end"');
+  if (replay.length) {
+    const duration = replay.length * 2.4;
+    let frames = "";
+    let styles = `.replay-frame{opacity:0;animation-duration:${duration}s;animation-timing-function:steps(1,end);animation-iteration-count:infinite}`;
+    replay.forEach((day, i) => {
+      const column = Math.floor((Date.parse(day.date) - firstWeek) / (7 * 86400000));
+      const row = new Date(day.date).getUTCDay();
+      const start = (i / replay.length * 100).toFixed(5);
+      const end = ((i + 1) / replay.length * 100).toFixed(5);
+      styles += `.replay-${i}{animation-name:replay-${i}}@keyframes replay-${i}{0%{opacity:0}${start}%{opacity:1}${end}%{opacity:0}100%{opacity:0}}`;
+      frames += `<g class="replay-frame replay-${i}${i === replay.length - 1 ? " replay-latest" : ""}" data-replay-date="${day.date}" data-replay-count="${day.count}">`;
+      frames += `<rect x="${x0 + column * step - 3}" y="${y0 + row * step - 3}" width="${size + 6}" height="${size + 6}" rx="3" fill="none" stroke="${themes[theme].pink}" stroke-width="2"/>`;
+      frames += text(24, captionY, `${day.date} / ${day.count} ${day.count === 1 ? "contribution" : "contributions"}`, mobile ? 16 : 19, "pink");
+      frames += text(w - 24, captionY, `${String(i + 1).padStart(2, "0")} / ${String(replay.length).padStart(2, "0")}`, mobile ? 12 : 14, "muted", 'text-anchor="end"');
+      frames += "</g>";
+    });
+    styles += "@media(prefers-reduced-motion:reduce){.replay-frame{animation:none;opacity:0!important}.replay-latest{opacity:1!important}}";
+    body += `<style>${styles}</style>${frames}`;
+  } else {
+    body += text(24, captionY, "No contributions in this period.", mobile ? 16 : 19, "muted");
+  }
+  body += text(24, mobile ? 184 : 233, "DAILY TOTALS / PRIVATE ACTIVITY ANONYMISED", mobile ? 11 : 12, "muted");
+  return svg(theme, w, mobile ? 202 : 250, "Daily contribution calendar with a chronological replay of the latest twelve active days. Public and opted-in private activity counts only; no private repository details.", body);
 }
 
 export function contact(theme, mobile = false) {

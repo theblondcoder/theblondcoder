@@ -90,7 +90,12 @@ These are technologies I've used or explored through study, projects and practic
 
 </details>
 
-[Inspect the repository →](https://github.com/theblondcoder/StarStats)
+<a href="https://github.com/theblondcoder/StarStats" title="Explore the StarStats repository">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./assets/starstats-repository-dark.svg">
+    <img src="./assets/starstats-repository-light.svg" alt="Explore the StarStats repository on GitHub" width="360">
+  </picture>
+</a>
 
 ### Smart Fire Detection / From Sensor to Signal
 
@@ -114,7 +119,12 @@ These are technologies I've used or explored through study, projects and practic
 
 </details>
 
-[Inspect the repository →](https://github.com/theblondcoder/alarm-smart-tech-public)
+<a href="https://github.com/theblondcoder/alarm-smart-tech-public" title="Explore the Smart Fire Detection repository">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./assets/fire-repository-dark.svg">
+    <img src="./assets/fire-repository-light.svg" alt="Explore the Smart Fire Detection repository on GitHub" width="360">
+  </picture>
+</a>
 
 ### Training Diary / An App Under Construction
 
@@ -141,7 +151,12 @@ These are technologies I've used or explored through study, projects and practic
 
 </details>
 
-[Follow the build →](https://github.com/theblondcoder/training-diary-app-public)
+<a href="https://github.com/theblondcoder/training-diary-app-public" title="Follow the Training Diary repository">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./assets/diary-repository-dark.svg">
+    <img src="./assets/diary-repository-light.svg" alt="Follow the Training Diary build on GitHub" width="360">
+  </picture>
+</a>
 
 ### Home Lab / Learning by Keeping It Running
 
@@ -182,13 +197,13 @@ The graphic above is conceptual. Addresses, hostnames, ports, credentials, servi
   <img src="./assets/activity-light.svg" alt="GitHub contributions over the last twelve months: totals, active days, streaks and weekly bars." width="100%">
 </picture>
 
-<sub>23 contributions · 5 active days · current streak: 1 day · longest streak: 1 day. As shown publicly through 2026-10-12.</sub>
+<sub>139 contributions · 32 active days · current streak: 1 day · longest streak: 2 days. As shown publicly through 2026-10-12.</sub>
 
 <picture>
   <source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="./assets/activity-grid-mobile-dark.svg">
   <source media="(max-width: 600px)" srcset="./assets/activity-grid-mobile-light.svg">
   <source media="(prefers-color-scheme: dark)" srcset="./assets/activity-grid-dark.svg">
-  <img src="./assets/activity-grid-light.svg" alt="A year of daily contribution counts, with an animated scan line." width="100%">
+  <img src="./assets/activity-grid-light.svg" alt="A year of daily contribution totals, including opted-in anonymised private activity. Animation replays the latest twelve active days with their dates and counts." width="100%">
 </picture>
 
 ### Recent Updates

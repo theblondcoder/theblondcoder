@@ -9,4 +9,6 @@ The scheduled workflow refreshes every six hours and only commits changed snapsh
 
 The calendar parser validates accessible count labels, dates and completeness. A missing label or changed HTML structure fails the refresh rather than inventing zero contributions. Streaks are measured in UTC calendar days; an unfinished current day with zero contributions does not break yesterday's streak.
 
+The calendar animation replays up to twelve recent active days in chronological order. Each highlighted cell is paired with its actual date and contribution count. Reduced-motion preferences show the latest day without animation. GitHub contribution totals are not labelled as commit-only totals.
+
 Project stories and roadmap status are maintained manually so an activity update cannot silently turn planned features into completed claims. Technology marks are credited in `assets/ICONS.md`.
