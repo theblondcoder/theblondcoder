@@ -75,7 +75,7 @@ The Training Diary is actively evolving. Cloud database integration, caching, no
 <!-- PUBLIC-ACTIVITY:START -->
 ## Public Activity
 
-_The public activity snapshot will appear here after the profile updater runs._
+Latest public update: **Push** in [theblondcoder/StarStats](https://github.com/theblondcoder/StarStats) · 2026-10-10.
 <!-- PUBLIC-ACTIVITY:END -->
 
 ## Find Me
