@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 218" role="img" aria-labelledby="title desc">
+  <title id="title">Build Log by Iván Baltanás</title>
+  <desc id="desc">A developer profile focused on web, apps, and systems.</desc>
+  <style>
+    .pulse { animation: pulse 2.8s ease-in-out infinite; transform-origin: 896px 107px; }
+    .trace { animation: trace 5s linear infinite; stroke-dasharray: 5 9; }
+    @keyframes pulse { 50% { opacity: .42; transform: scale(.84); } }
+    @keyframes trace { to { stroke-dashoffset: -56; } }
+    @media (prefers-reduced-motion: reduce) { .pulse, .trace { animation: none; } }
+  </style>
+  <rect x="1" y="1" width="998" height="216" rx="8" fill="#101713" stroke="#30453a" stroke-width="2"/>
+  <path d="M24 39h952M24 178h952" stroke="#30453a"/>
+  <circle cx="36" cy="22" r="5" fill="#63f58d"/>
+  <circle cx="54" cy="22" r="5" fill="#ff6394"/>
+  <circle cx="72" cy="22" r="5" fill="#86a99a"/>
+  <text x="95" y="27" fill="#95aa9d" font-family="Consolas,monospace" font-size="13">PROFILE / BUILD LOG</text>
+  <text x="28" y="100" fill="#f2f6f2" font-family="Arial,sans-serif" font-size="43" font-weight="700">IVÁN BALTANÁS</text>
+  <text x="30" y="135" fill="#aabbb0" font-family="Consolas,monospace" font-size="19">Web development <tspan fill="#63f58d">·</tspan> Apps <tspan fill="#ff6394">·</tspan> Systems</text>
+  <text x="30" y="161" fill="#83968a" font-family="Consolas,monospace" font-size="12">BUILD / LEARN / IMPROVE</text>
+  <path d="M641 145h93l23-38h78l22-30h94" fill="none" stroke="#63f58d" stroke-width="2" opacity=".72"/>
+  <path class="trace" d="M641 145h93l23-38h78l22-30h94" fill="none" stroke="#d7ffdf" stroke-width="2"/>
+  <path d="M641 157h138l20-20h139" fill="none" stroke="#ff6394" stroke-width="1.5" opacity=".6"/>
+  <circle cx="641" cy="145" r="4" fill="#63f58d"/>
+  <circle cx="734" cy="145" r="4" fill="#63f58d"/>
+  <circle cx="757" cy="107" r="4" fill="#ff6394"/>
+  <circle cx="835" cy="107" r="4" fill="#63f58d"/>
+  <circle cx="857" cy="77" r="4" fill="#ff6394"/>
+  <circle class="pulse" cx="896" cy="107" r="19" fill="#63f58d" opacity=".8"/>
+  <circle cx="896" cy="107" r="6" fill="#101713" stroke="#f2f6f2" stroke-width="2"/>
+  <text x="805" y="197" fill="#95aa9d" font-family="Consolas,monospace" font-size="12">PERSONAL ENGINEERING LOG</text>
+</svg>
