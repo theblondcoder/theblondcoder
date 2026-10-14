@@ -170,3 +170,23 @@ test("calendar replay highlights only the latest real active days in chronologic
   assert.match(empty, /No contributions in this period/);
   assert.doesNotMatch(empty, /data-replay-date/);
 });
+
+test("the introduction preserves the complete education chronology and current study status", async () => {
+  const source = await readFile(new URL("../README.md", import.meta.url), "utf8");
+  const about = source.split("## 01 / About Me")[1].split("## 02 / Toolchain")[0];
+  assert.match(about, /2025 - Present.*Bachelor in Information and Communication Technologies/);
+  assert.match(about, /App Development.*Thomas More University.*In progress/);
+  assert.match(about, /2024 - 2025.*Specialisation Course in Cybersecurity in Information Technology Environments/);
+  assert.match(about, /2022 - 2024.*Higher Technician in Web Application Development/);
+  assert.match(about, /2020 - 2022.*High School Graduate/);
+  assert.match(about, /Web development is my main focus/);
+  assert.match(about, /desktop and Android applications/);
+  assert.match(about, /IT systems, cybersecurity and networking/);
+  assert.doesNotMatch(about, /My education connects these interests|full-stack internship|IT systems administration/);
+  const educationEnd = about.indexOf("</details>");
+  const homeLab = about.indexOf("That curiosity continues outside the classroom.");
+  assert.ok(educationEnd > about.indexOf("### Education / The Route So Far"));
+  assert.ok(homeLab > educationEnd && homeLab < about.indexOf("```yaml"));
+  assert.doesNotMatch(about, /Experience, without the confidential bits|April - July 2024|October 2023 - March 2024/);
+  assert.doesNotMatch(about, /[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}|\+\d{2}\s*\d{6,}/);
+});

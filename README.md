@@ -15,32 +15,41 @@
 
 ## 01 / About Me
 
-**Web development is my focus. Understanding what runs underneath it keeps me curious.**
+**I'm Iván Baltanás, a web developer with a passion for building applications and understanding the systems behind them.**
 
-I'm Iván, an ICT student specialising in application development at **Thomas More, Belgium**. I build web and Android apps, and keep a personal home lab running to learn about Linux, containers, networking and self-hosting.
+**Web development is my main focus**, and I also develop **desktop and Android applications**. I enjoy connecting interfaces, APIs and databases to turn an idea into something useful. Beyond development, I'm an enthusiast of **IT systems, cybersecurity and networking**: I want to understand how software runs, communicates and can be secured.
 
-My route into tech includes a higher technical degree in web application development, a full-stack internship and hands-on IT systems experience. I like projects where an interface, an API and the system behind them have to work together.
+### Education / The Route So Far
+
+- **`2025 - Present` / Bachelor in Information and Communication Technologies**<br>
+  Specialisation in **App Development** · Thomas More University, Sint-Katelijne-Waver, Belgium · **In progress**
+- **`2024 - 2025` / Specialisation Course in Cybersecurity in Information Technology Environments**<br>
+  IES El Cañaveral, Móstoles, Madrid, Spain
+- **`2022 - 2024` / Higher Technician in Web Application Development**<br>
+  IES José Luis Sampedro, Tres Cantos, Madrid, Spain
+- **`2020 - 2022` / High School Graduate**<br>
+  IES José Luis Sampedro, Tres Cantos, Madrid, Spain
+
+<details>
+<summary><b>Academic highlights & English</b></summary>
+
+- Highest average grade in my web development cohort: **8/10**.
+- Final web development project: **8/10**.
+- Duolingo English certificate: **110 (Advanced B2)**.
+
+</details>
+
+That curiosity continues outside the classroom. I run a **Raspberry Pi NAS and self-hosted services lab**, experiment with Linux, containers and networks, and develop personal projects to put what I learn into practice. I like learning by building, testing and understanding how all the pieces fit together.
 
 ```yaml
 developer:
   handle: theblondcoder
   main_quest: web development
-  side_quests: [apps, automation, systems, cybersecurity]
+  side_quests: [desktop, Android, systems, cybersecurity, networks]
   learning_mode: build → break → understand → improve
 ```
 
 **Currently on the workbench:** Training Diary, with cloud data, caching and notifications on the development roadmap.
-
-<details>
-<summary><b>Experience, without the confidential bits</b></summary>
-
-- **Full-stack internship:** React and Tailwind interfaces, Node.js/Express REST APIs, PostgreSQL and Prisma, authentication, business logic and teamwork with Git.
-- **IT systems experience:** maintaining computers, servers and networks, plus scripting to automate recurring tasks.
-- **Security mindset:** cybersecurity coursework and an ongoing interest in understanding how systems are configured, connected and protected.
-
-Employer work stays private. No company, client or supplier names, internal code or operational data are published here.
-
-</details>
 
 ## 02 / Toolchain
 
