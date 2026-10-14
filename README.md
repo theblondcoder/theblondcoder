@@ -147,7 +147,7 @@ The graphic above is conceptual. Addresses, hostnames, ports, credentials, servi
   <img src="./assets/activity-light.svg" alt="GitHub contributions over the last twelve months: totals, active days, streaks and weekly bars." width="100%">
 </picture>
 
-<sub>141 contributions · 33 active days · current streak: 1 day · longest streak: 2 days. As shown publicly through 2026-10-14.</sub>
+<sub>142 contributions · 33 active days · current streak: 1 day · longest streak: 2 days. As shown publicly through 2026-10-14.</sub>
 
 <picture>
   <source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="./assets/activity-grid-mobile-dark.svg">
@@ -189,7 +189,9 @@ The graphic above is conceptual. Addresses, hostnames, ports, credentials, servi
   </picture>
 </a>
 
-[LinkedIn / Iván Baltanás](https://www.linkedin.com/in/iv%C3%A1n-baltan%C3%A1s-ortiz-a93416276/) &nbsp;·&nbsp; [ivabalta@gmail.com](mailto:ivabalta@gmail.com) &nbsp;·&nbsp; [blondcoder@gmail.com](mailto:blondcoder@gmail.com)
+<a href="https://www.linkedin.com/in/iv%C3%A1n-baltan%C3%A1s-ortiz-a93416276/" title="Contact Iván on LinkedIn"><picture><source media="(prefers-color-scheme: dark)" srcset="./assets/contact-linkedin-dark.svg"><img src="./assets/contact-linkedin-light.svg" alt="LinkedIn / Iván Baltanás" width="270"></picture></a>
+<a href="mailto:ivabalta@gmail.com" title="Contact ivabalta@gmail.com"><picture><source media="(prefers-color-scheme: dark)" srcset="./assets/contact-primarymail-dark.svg"><img src="./assets/contact-primarymail-light.svg" alt="Gmail / ivabalta@gmail.com" width="270"></picture></a>
+<a href="mailto:blondcoder@gmail.com" title="Contact blondcoder@gmail.com"><picture><source media="(prefers-color-scheme: dark)" srcset="./assets/contact-codermail-dark.svg"><img src="./assets/contact-codermail-light.svg" alt="Gmail / blondcoder@gmail.com" width="270"></picture></a>
 
 ---
 

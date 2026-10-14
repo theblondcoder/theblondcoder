@@ -324,7 +324,8 @@ export function heatmap(theme, calendar, mobile = false) {
     });
     motion += `100%{transform:translate(${route[0].x}px,${route[0].y}px)}`;
     styles += `.arcade-runner{animation:packet-run ${duration}s linear infinite}.arcade-flame{animation:engine .3s steps(2,end) infinite}.checkpoint{animation:pickup 1.2s ease-in-out infinite}@keyframes packet-run{${motion}}@keyframes engine{50%{opacity:.25}}@keyframes pickup{50%{stroke:${t.cyan}}}`;
-    styles += "@media(prefers-reduced-motion:reduce){.replay-frame{animation:none;opacity:0!important}.replay-latest{opacity:1!important}.arcade-runner{display:none}.arcade-flame,.checkpoint{animation:none}}";
+    // The owner explicitly requested always-on playback; reduced motion still suppresses flicker.
+    styles += "@media(prefers-reduced-motion:reduce){.arcade-flame,.checkpoint{animation:none}}";
     const trail = route.map(({ x, y }, i) => `${i ? "L" : "M"}${x} ${y}`).join(" ");
     body += `<style>${styles}</style><path d="${trail}" fill="none" stroke="${t.cyan}" stroke-width="1" stroke-dasharray="2 5" opacity=".45"/>${frames}`;
     // Original pixel spacecraft; all waypoints are actual calendar cells.
@@ -344,4 +345,20 @@ export function contact(theme, mobile = false) {
   body += text(20, 113, "LinkedIn / Iván Baltanás", 18, "cyan");
   body += text(w - 24, 114, "↗", 26, "lime");
   return svg(theme, w, 138, "Connect with Iván Baltanás on LinkedIn", body);
+}
+
+export function contactButton(theme, key, icons) {
+  const specs = {
+    linkedin: { icon: "linkedin", label: "LinkedIn", caption: "Iván Baltanás", color: "cyan" },
+    primarymail: { icon: "gmail", label: "ivabalta@gmail.com", caption: "EMAIL / DIRECT", color: "lime" },
+    codermail: { icon: "gmail", label: "blondcoder@gmail.com", caption: "EMAIL / DIRECT", color: "pink" },
+  };
+  const p = specs[key];
+  if (!p || !icons[p.icon]) throw new Error(`Missing contact icon: ${key}`);
+  const t = themes[theme];
+  let body = `<rect x="1" y="1" width="268" height="74" rx="4" fill="${t.panel}" stroke="${t[p.color]}"/>`;
+  body += `<g data-contact-icon="${p.icon}" transform="translate(17,22) scale(1.3)"><path d="${icons[p.icon].path}" class="${p.color}"/></g>`;
+  body += text(64, 33, p.label, key === "linkedin" ? 19 : 15, "fg", 'font-weight="700"');
+  body += text(64, 55, p.caption, 12, "muted");
+  return svg(theme, 270, 76, key === "linkedin" ? "Open Iván Baltanás on LinkedIn" : `Email ${p.label}`, body);
 }

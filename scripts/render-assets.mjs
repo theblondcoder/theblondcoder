@@ -1,5 +1,5 @@
 import { readFile, writeFile, mkdir } from "node:fs/promises";
-import { header, toolchain, project, contact, repositoryButton } from "./visuals.mjs";
+import { header, toolchain, project, contact, contactButton, repositoryButton } from "./visuals.mjs";
 
 const assets = new URL("../assets/", import.meta.url);
 const icons = JSON.parse(await readFile(new URL("brand-icons.json", assets), "utf8"));
@@ -18,5 +18,8 @@ for (const theme of ["dark", "light"]) {
   }
   for (const key of ["starstats", "fire", "diary"]) {
     await writeFile(new URL(`${key}-repository-${theme}.svg`, assets), repositoryButton(theme, key));
+  }
+  for (const key of ["linkedin", "primarymail", "codermail"]) {
+    await writeFile(new URL(`contact-${key}-${theme}.svg`, assets), contactButton(theme, key, icons));
   }
 }

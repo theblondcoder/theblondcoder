@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { publicRepos, publicSignals, snapshot, replaceSnapshot } from "./public-data.mjs";
-import { activity, heatmap, escapeXml, project, wrapText, toolchain, repositoryButton } from "./visuals.mjs";
+import { activity, heatmap, escapeXml, project, wrapText, toolchain, repositoryButton, contactButton } from "./visuals.mjs";
 import { parseCalendar, calendarStats } from "./contributions.mjs";
 import { readFile, access } from "node:fs/promises";
 import { parseFragment } from "parse5";
@@ -54,7 +54,7 @@ test("invalid repo names and inherited event types are rejected", () => {
 test("all README graphics exist locally in all theme and mobile variants", async () => {
   const source = await readFile(new URL("../README.md", import.meta.url), "utf8");
   const files = [...new Set([...source.matchAll(/(?:src|srcset)="(\.\/assets\/[^\"]+)"/g)].map((m) => m[1]))];
-  assert.equal(files.length, 42);
+  assert.equal(files.length, 48);
   for (const file of files) {
     const url = new URL(`../${file}`, import.meta.url);
     await access(url);
@@ -137,7 +137,7 @@ test("each technology label shares its icon centre in both layouts and themes", 
 
 test("highlighted repository links retain the correct destinations and accessible names", async () => {
   const source = await readFile(new URL("../README.md", import.meta.url), "utf8");
-  const links = elements(parseFragment(source)).filter((n) => n.tagName === "a" && attributes(n).title);
+  const links = elements(parseFragment(source)).filter((n) => n.tagName === "a" && attributes(n).title && attributes(n).href.startsWith("https://github.com/"));
   assert.deepEqual(links.map((n) => attributes(n).href), [
     "https://github.com/theblondcoder/StarStats",
     "https://github.com/theblondcoder/alarm-smart-tech-public",
@@ -175,10 +175,11 @@ test("calendar replay highlights only the latest real active days in chronologic
         80 + new Date(day.date).getUTCDay() * step + size / 2,
       ]));
       assert.match(output, /@keyframes packet-run/);
-      assert.match(output, /\.arcade-runner\{display:none\}/);
+      assert.doesNotMatch(output, /\.arcade-runner\{display:none\}/);
       assert.equal(frames.filter((a) => a.class.includes("replay-latest")).length, 1);
       assert.match(output, /prefers-reduced-motion:reduce/);
-      assert.match(output, /\.replay-frame\{animation:none;opacity:0!important\}/);
+      assert.doesNotMatch(output, /\.replay-frame\{animation:none|\.replay-latest\{opacity:1!important/);
+      assert.match(output, /@media\(prefers-reduced-motion:reduce\)\{\.arcade-flame,\.checkpoint\{animation:none\}\}/);
       assert.doesNotMatch(output, /@keyframes sweep|animated scan line/);
     }
   }
@@ -189,6 +190,30 @@ test("calendar replay highlights only the latest real active days in chronologic
   const single = heatmap("light", calendarStats([{ date: "2026-10-01", count: 1 }]), true);
   assert.match(single, /data-run-total="1"/);
   assert.doesNotMatch(single, /NaN|Infinity/);
+});
+
+test("contact SVG buttons link directly to the approved LinkedIn profile and email addresses", async () => {
+  const source = await readFile(new URL("../README.md", import.meta.url), "utf8");
+  const contacts = source.split("## 05 / Open a Channel")[1];
+  const links = elements(parseFragment(contacts)).filter((node) => node.tagName === "a" && attributes(node).title?.startsWith("Contact "));
+  assert.deepEqual(links.map((node) => attributes(node).href), [
+    "https://www.linkedin.com/in/iv%C3%A1n-baltan%C3%A1s-ortiz-a93416276/",
+    "mailto:ivabalta@gmail.com",
+    "mailto:blondcoder@gmail.com",
+  ]);
+  const icons = JSON.parse(await readFile(new URL("../assets/brand-icons.json", import.meta.url), "utf8"));
+  for (const link of links) {
+    assert.ok(elements(link).some((node) => node.tagName === "img" && attributes(node).alt && attributes(node).width === "270"));
+  }
+  for (const theme of ["dark", "light"]) {
+    for (const key of ["linkedin", "primarymail", "codermail"]) {
+      const output = contactButton(theme, key, icons);
+      assert.match(output, /viewBox="0 0 270 76"/);
+      assert.match(output, new RegExp(`data-contact-icon="${key === "linkedin" ? "linkedin" : "gmail"}"`));
+      assert.doesNotMatch(output, /<script|<foreignObject|(?:href|src)="https?:/i);
+    }
+  }
+  assert.throws(() => contactButton("dark", "unknown", icons));
 });
 
 test("marked duplicate text is removed and the toolchain starts with the expertise note", async () => {
