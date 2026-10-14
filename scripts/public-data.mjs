@@ -43,7 +43,7 @@ export function snapshot(events, repos, calendar) {
   <source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="./assets/activity-grid-mobile-dark.svg">
   <source media="(max-width: 600px)" srcset="./assets/activity-grid-mobile-light.svg">
   <source media="(prefers-color-scheme: dark)" srcset="./assets/activity-grid-dark.svg">
-  <img src="./assets/activity-grid-light.svg" alt="A year of daily contribution totals, including opted-in anonymised private activity. Animation replays the latest twelve active days with their dates and counts." width="100%">
+  <img src="./assets/activity-grid-light.svg" alt="Packet Run: a pixel spacecraft visits real contribution days. The calendar includes opted-in anonymous private counts. Dates and counts are real; run total is the subtotal of up to twelve recent active days, not the annual total." width="100%">
 </picture>\n\n### Recent Updates\n\n${lines}\n\n<details>\n<summary><b>Public repository index</b> / auto-discovered</summary>\n\n${rows ? `| Repository | Last push (UTC) |\n| --- | --- |\n${rows}` : "No public project repositories found."}\n\n[All public repositories](https://github.com/${username}?tab=repositories&type=public)\n\n</details>\n\n<sub>Updated every six hours. Calendar counts are read anonymously from the public GitHub profile; they may include anonymised private contributions if you enable that setting. No private repository names, code or access details are read. Recent updates use public events only. All dates use UTC.</sub>\n`;
 }
 

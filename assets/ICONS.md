@@ -5,3 +5,5 @@ Technology marks in `brand-icons.json` are from [Simple Icons](https://github.co
 The console layouts, diagrams, animations and typography are original profile assets. No third-party statistics widgets or tracking pixels are used.
 
 The Target, Blocks, CircleCheck, CodeXml and ArrowUpRight icons come from [Lucide](https://lucide.dev), licensed under ISC. See `LUCIDE-LICENSE` for the copyright and licence notice.
+
+The ops and networks row uses Lucide-derived terminal, package, box and network symbols to identify tools by function. These are not brand logos. The pixel spacecraft in Packet Run is original artwork.

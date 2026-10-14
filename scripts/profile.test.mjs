@@ -119,7 +119,10 @@ test("each technology label shares its icon centre in both layouts and themes", 
     for (const mobile of [false, true]) {
       const nodes = elements(parseFragment(toolchain(theme, icons, mobile))).map(attributes);
       const marks = nodes.filter((a) => a["data-tech"]);
-      assert.equal(marks.length, 20);
+      assert.equal(marks.length, 25);
+      for (const id of ["bash", "powershell", "kubernetes", "vagrant", "ciscoconsole"]) {
+        assert.ok(marks.some((mark) => mark["data-tech"] === id), id);
+      }
       for (const mark of marks) {
         const label = nodes.find((a) => a["data-label-for"] === mark["data-tech"]);
         const position = /translate\((\d+),(\d+)\)/.exec(mark.transform);
@@ -160,6 +163,19 @@ test("calendar replay highlights only the latest real active days in chronologic
       const output = heatmap(theme, history, mobile);
       const frames = elements(parseFragment(output)).map(attributes).filter((a) => a["data-replay-date"]);
       assert.deepEqual(frames.map((a) => ({ date: a["data-replay-date"], count: Number(a["data-replay-count"]) })), expected);
+      assert.deepEqual(frames.map((a) => Number(a["data-run-total"])), expected.map((_, i) => expected.slice(0, i + 1).reduce((sum, day) => sum + day.count, 0)));
+      const route = elements(parseFragment(output)).map(attributes).find((a) => a["data-arcade-route"]);
+      assert.equal(route["data-arcade-route"].split(" ").length, expected.length);
+      const width = mobile ? 480 : 960;
+      const step = mobile ? 8 : 16;
+      const size = mobile ? 6 : 12;
+      const x0 = (width - history.weeks.length * step) / 2;
+      assert.deepEqual(route["data-arcade-route"].split(" ").map((p) => p.split(",").map(Number)), expected.map((day) => [
+        x0 + Math.floor((Date.parse(day.date) - Date.parse(history.weeks[0].date)) / (7 * 86400000)) * step + size / 2,
+        80 + new Date(day.date).getUTCDay() * step + size / 2,
+      ]));
+      assert.match(output, /@keyframes packet-run/);
+      assert.match(output, /\.arcade-runner\{display:none\}/);
       assert.equal(frames.filter((a) => a.class.includes("replay-latest")).length, 1);
       assert.match(output, /prefers-reduced-motion:reduce/);
       assert.match(output, /\.replay-frame\{animation:none;opacity:0!important\}/);
@@ -169,6 +185,22 @@ test("calendar replay highlights only the latest real active days in chronologic
   const empty = heatmap("dark", calendarStats([{ date: "2026-10-01", count: 0 }]));
   assert.match(empty, /No contributions in this period/);
   assert.doesNotMatch(empty, /data-replay-date/);
+  assert.doesNotMatch(empty, /data-arcade-route/);
+  const single = heatmap("light", calendarStats([{ date: "2026-10-01", count: 1 }]), true);
+  assert.match(single, /data-run-total="1"/);
+  assert.doesNotMatch(single, /NaN|Infinity/);
+});
+
+test("marked duplicate text is removed and the toolchain starts with the expertise note", async () => {
+  const source = await readFile(new URL("../README.md", import.meta.url), "utf8");
+  assert.doesNotMatch(source, /Currently on the workbench|Project building blocks|Open the extended toolkit|readable project notes/);
+  const note = "These are technologies I've used or explored through study, projects and practical experience, not a claim of equal expertise in every tool.";
+  assert.equal(source.split(note).length, 2);
+  const stack = source.split("## 02 / Toolchain")[1].split("## 03 / Build Files")[0];
+  assert.ok(stack.trimStart().startsWith(note));
+  for (const label of ["Bash", "PowerShell", "Kubernetes", "Vagrant", "Cisco console"]) assert.ok(stack.includes(label));
+  assert.match(source, /ACTIVELY IN DEVELOPMENT/);
+  assert.match(source, /Inside the software toolbox/);
 });
 
 test("the introduction preserves the complete education chronology and current study status", async () => {

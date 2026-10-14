@@ -49,31 +49,16 @@ developer:
   learning_mode: build → break → understand → improve
 ```
 
-**Currently on the workbench:** Training Diary, with cloud data, caching and notifications on the development roadmap.
-
 ## 02 / Toolchain
+
+These are technologies I've used or explored through study, projects and practical experience, not a claim of equal expertise in every tool.
 
 <picture>
   <source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="./assets/toolchain-mobile-dark.svg">
   <source media="(max-width: 600px)" srcset="./assets/toolchain-mobile-light.svg">
   <source media="(prefers-color-scheme: dark)" srcset="./assets/toolchain-dark.svg">
-  <img src="./assets/toolchain-light.svg" alt="Interface: React, TypeScript, JavaScript, Tailwind CSS, PHP. APIs and data: Node.js, Express, PostgreSQL, MySQL, Prisma. Apps and code: Kotlin, Android, Python, .NET, C++. Systems: Linux, Docker, Git, Wireshark, Arduino." width="100%">
+  <img src="./assets/toolchain-light.svg" alt="Interface: React, TypeScript, JavaScript, Tailwind CSS, PHP. APIs and data: Node.js, Express, PostgreSQL, MySQL, Prisma. Apps and code: Kotlin, Android, Python, .NET, C++. Systems: Linux, Docker, Git, Wireshark, Arduino. Ops and networks: Bash, PowerShell, Kubernetes, Vagrant, Cisco console." width="100%">
 </picture>
-
-**Project building blocks:** HTML · CSS · JavaScript · TypeScript · React · Tailwind CSS · PHP · Node.js · Express · REST APIs · SQL · PostgreSQL · MySQL/MariaDB · Prisma · Kotlin · Android · Room · Git/GitHub.
-
-<details>
-<summary><b>Open the extended toolkit</b> / coursework, projects and systems practice</summary>
-
-**Languages & formats** / Python · Bash · PowerShell · C · C++ · C#/.NET · JSON · XML
-
-**Infrastructure** / Linux · Windows · Docker · Kubernetes · Vagrant · VirtualBox · VMware · GitHub Actions
-
-**Networking & tools** / Wireshark · WireGuard · Cisco console · PuTTY · Arduino
-
-These are technologies I've used or explored through study, projects and practical experience, not a claim of equal expertise in every tool.
-
-</details>
 
 ## 03 / Build Files
 
@@ -87,17 +72,6 @@ These are technologies I've used or explored through study, projects and practic
     <img src="./assets/starstats-light.svg" alt="StarStats source selection: retired athletes from the database; active athletes from Wikipedia scraping." width="100%">
   </picture>
 </a>
-
-<details>
-<summary><b>StarStats / readable project notes</b></summary>
-
-**The problem:** tennis information is easier to explore when players and competition statistics can be searched and compared in one place.
-
-**What I built:** a React interface, an Express/TypeScript API, PHP scraping endpoints and MySQL/MariaDB storage. The app makes a source decision for each athlete: **retired → database; active → Wikipedia scraping.**
-
-**The result:** player search, athlete cards and competition-based comparisons, with data retrieval adapted to the athlete's status.
-
-</details>
 
 <a href="https://github.com/theblondcoder/StarStats" title="Explore the StarStats repository">
   <picture>
@@ -116,17 +90,6 @@ These are technologies I've used or explored through study, projects and practic
     <img src="./assets/fire-light.svg" alt="Smart Fire Detection: sensors, ESP32, a monitoring dashboard and alerts. Embedded prototype." width="100%">
   </picture>
 </a>
-
-<details>
-<summary><b>Smart Fire Detection / readable project notes</b></summary>
-
-**The problem:** sensing a possible fire is only useful if the readings can be monitored and an alert can be surfaced.
-
-**What I built:** an ESP32-based sensing prototype paired with a Node.js/Express monitoring dashboard.
-
-**The result:** embedded sensing and web monitoring in one working prototype. This is a learning project, not a certified fire-safety system. Deployment credentials and access details are not part of the public repository.
-
-</details>
 
 <a href="https://github.com/theblondcoder/alarm-smart-tech-public" title="Explore the Smart Fire Detection repository">
   <picture>
@@ -149,17 +112,6 @@ These are technologies I've used or explored through study, projects and practic
 > [!IMPORTANT]
 > **ACTIVELY IN DEVELOPMENT.** Cloud database integration, caching, notifications and more improvements are being developed or planned. They are not all completed features.
 
-<details>
-<summary><b>Training Diary / readable project notes</b></summary>
-
-**The problem:** keeping track of training should be straightforward, without the overhead of a complicated fitness platform.
-
-**What I built:** a native Android app in Kotlin, using Room to store workout records locally.
-
-**The result so far:** a focused base for recording workouts and reviewing progress. The next stage explores cloud-backed data and a more connected app experience.
-
-</details>
-
 <a href="https://github.com/theblondcoder/training-diary-app-public" title="Follow the Training Diary repository">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="./assets/diary-repository-dark.svg">
@@ -175,17 +127,6 @@ These are technologies I've used or explored through study, projects and practic
   <source media="(prefers-color-scheme: dark)" srcset="./assets/lab-dark.svg">
   <img src="./assets/lab-light.svg" alt="Home Lab: Linux, Docker, self-hosted services and automation scripts. A conceptual overview, not a network map." width="100%">
 </picture>
-
-<details>
-<summary><b>Home Lab / readable project notes</b></summary>
-
-**The problem:** I wanted my own place to experiment with Linux, storage, networking and containers beyond a classroom exercise.
-
-**What I built:** a Raspberry Pi home NAS using OpenMediaVault, redundant storage and Docker-based self-hosted services, alongside scripts for personal automation.
-
-**The result:** a running, modular lab that grows as I discover new tools. Private cloud storage, media management, DNS filtering and home automation all give me practical reasons to keep learning.
-
-</details>
 
 <details>
 <summary><b>Inside the software toolbox</b> / not the network configuration</summary>
@@ -206,13 +147,13 @@ The graphic above is conceptual. Addresses, hostnames, ports, credentials, servi
   <img src="./assets/activity-light.svg" alt="GitHub contributions over the last twelve months: totals, active days, streaks and weekly bars." width="100%">
 </picture>
 
-<sub>140 contributions · 32 active days · current streak: 0 days · longest streak: 2 days. As shown publicly through 2026-10-14.</sub>
+<sub>141 contributions · 33 active days · current streak: 1 day · longest streak: 2 days. As shown publicly through 2026-10-14.</sub>
 
 <picture>
   <source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="./assets/activity-grid-mobile-dark.svg">
   <source media="(max-width: 600px)" srcset="./assets/activity-grid-mobile-light.svg">
   <source media="(prefers-color-scheme: dark)" srcset="./assets/activity-grid-dark.svg">
-  <img src="./assets/activity-grid-light.svg" alt="A year of daily contribution totals, including opted-in anonymised private activity. Animation replays the latest twelve active days with their dates and counts." width="100%">
+  <img src="./assets/activity-grid-light.svg" alt="Packet Run: a pixel spacecraft visits real contribution days. The calendar includes opted-in anonymous private counts. Dates and counts are real; run total is the subtotal of up to twelve recent active days, not the annual total." width="100%">
 </picture>
 
 ### Recent Updates

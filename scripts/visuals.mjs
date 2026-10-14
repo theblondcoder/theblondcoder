@@ -81,6 +81,15 @@ export function header(theme, mobile = false) {
   return svg(theme, w, h, "Iván Baltanás | Web developer, apps, systems and cybersecurity", body);
 }
 
+// Lucide-derived terminal, package, box and network symbols (ISC).
+const toolIcons = {
+  bash: '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="m7 8 4 4-4 4M13 16h4"/>',
+  powershell: '<path d="m4 17 6-5-6-5M12 19h8"/>',
+  kubernetes: '<path d="m7.5 4.27 9 5.15M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16ZM3.3 7 12 12l8.7-5M12 22V12"/>',
+  vagrant: '<path d="m21 8-9 5-9-5M12 22V13M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/>',
+  ciscoconsole: '<rect x="9" y="2" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="16" y="16" width="6" height="6" rx="1"/><path d="M12 8v4M5 16v-4h14v4"/>',
+};
+
 export function toolchain(theme, icons, mobile = false) {
   const w = mobile ? 480 : 960;
   const rowH = mobile ? 230 : 142;
@@ -89,6 +98,7 @@ export function toolchain(theme, icons, mobile = false) {
     { name: "02 / APIs + DATA", names: ["Node.js", "Express", "PostgreSQL", "MySQL", "Prisma"], ids: ["nodedotjs", "express", "postgresql", "mysql", "prisma"], accent: "cyan" },
     { name: "03 / APPS + CODE", names: ["Kotlin", "Android", "Python", ".NET", "C++"], ids: ["kotlin", "android", "python", "dotnet", "cplusplus"], accent: "pink" },
     { name: "04 / SYSTEMS", names: ["Linux", "Docker", "Git", "Wireshark", "Arduino"], ids: ["linux", "docker", "git", "wireshark", "arduino"], accent: "lime" },
+    { name: "05 / OPS + NETWORKS", names: ["Bash", "PowerShell", "Kubernetes", "Vagrant", "Cisco console"], ids: ["bash", "powershell", "kubernetes", "vagrant", "ciscoconsole"], accent: "cyan" },
   ];
   let body = "";
   groups.forEach((g, i) => {
@@ -100,17 +110,20 @@ export function toolchain(theme, icons, mobile = false) {
     const gap = 139;
     g.ids.forEach((id, j) => {
       const icon = icons[id];
-      if (!icon) throw new Error(`Missing brand icon: ${id}`);
+      if (!icon && !toolIcons[id]) throw new Error(`Missing tool icon: ${id}`);
       const x = mobile ? (j < 3 ? 35 + j * 150 : 110 + (j - 3) * 150) : startX + j * gap;
       const iy = mobile ? y + (j < 3 ? 52 : 142) : iconY;
-      body += `<g data-tech="${id}" transform="translate(${x},${iy}) scale(1.5)"><path d="${icon.path}" class="${g.accent}"/></g>`;
+      const mark = toolIcons[id]
+        ? `<g fill="none" stroke="${themes[theme][g.accent]}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${toolIcons[id]}</g>`
+        : `<path d="${icon.path}" class="${g.accent}"/>`;
+      body += `<g data-tech="${id}" transform="translate(${x},${iy}) scale(1.5)">${mark}</g>`;
       body += text(x + 18, iy + (mobile ? 58 : 61), g.names[j], mobile ? 17 : 16, mobile ? "fg" : "muted", `text-anchor="middle" data-label-for="${id}"`);
     });
     if (!mobile) {
-      body += text(20, y + 76, ["Browser-facing", "Server-side", "Beyond the web", "Under the hood"][i], 14, "muted");
+      body += text(20, y + 76, ["Browser-facing", "Server-side", "Beyond the web", "Under the hood", "Shells & infrastructure"][i], 14, "muted");
     }
   });
-  return svg(theme, w, rowH * 4, "Toolchain modules: interface, APIs and data, apps and code, systems", body);
+  return svg(theme, w, rowH * groups.length, "Toolchain modules: interface, APIs and data, apps and code, systems, ops and networks. The last row uses tool symbols, not brand logos.", body);
 }
 
 const projectSpecs = {
@@ -258,45 +271,69 @@ export function activity(theme, calendar, mobile = false) {
 
 export function heatmap(theme, calendar, mobile = false) {
   const w = mobile ? 480 : 960;
+  const t = themes[theme];
   const size = mobile ? 6 : 12;
   const step = mobile ? 8 : 16;
   const x0 = (w - calendar.weeks.length * step) / 2;
-  const y0 = 58;
-  let body = text(24, 29, "CONTRIBUTION REPLAY", mobile ? 13 : 15, "muted");
+  const y0 = 80;
+  let body = text(24, 29, "CONTRIBUTION ARCADE", mobile ? 13 : 15, "lime");
+  body += text(24, 53, "PACKET RUN", mobile ? 12 : 13, "pink");
+  body += text(w - 24, 53, "12 MONTH MAP", mobile ? 11 : 13, "muted", 'text-anchor="end"');
+  body += rect(12, 64, w - 24, step * 7 + 28, "wire");
   const firstWeek = Date.parse(calendar.weeks[0].date);
   const max = Math.max(1, ...calendar.days.map((d) => d.count));
+  const point = (day) => ({
+    x: x0 + Math.floor((Date.parse(day.date) - firstWeek) / (7 * 86400000)) * step + size / 2,
+    y: y0 + new Date(day.date).getUTCDay() * step + size / 2,
+  });
   calendar.days.forEach((day) => {
-    const column = Math.floor((Date.parse(day.date) - firstWeek) / (7 * 86400000));
-    const row = new Date(day.date).getUTCDay();
+    const { x, y } = point(day);
     const opacity = day.count ? 0.3 + 0.7 * Math.sqrt(day.count / max) : 1;
-    body += `<rect x="${x0 + column * step}" y="${y0 + row * step}" width="${size}" height="${size}" rx="2" fill="${themes[theme][day.count ? "lime" : "line"]}" opacity="${opacity.toFixed(2)}"><title>${day.date}: ${day.count} contributions</title></rect>`;
+    const color = day.count ? (day.count / max >= 0.5 ? "cyan" : "lime") : "line";
+    body += `<rect x="${x - size / 2}" y="${y - size / 2}" width="${size}" height="${size}" rx="2" fill="${t[color]}" opacity="${opacity.toFixed(2)}"><title>${day.date}: ${day.count} contributions</title></rect>`;
   });
   const replay = calendar.days.filter((day) => day.count > 0).slice(-12);
-  const captionY = mobile ? 150 : 200;
-  body += text(w - 24, 29, `${replay.length} RECENT ACTIVE DAYS`, mobile ? 11 : 13, "muted", 'text-anchor="end"');
+  const captionY = mobile ? 188 : 244;
+  body += text(w - 24, 29, `AUTO / ${replay.length} STAGES`, mobile ? 11 : 13, "cyan", 'text-anchor="end"');
   if (replay.length) {
     const duration = replay.length * 2.4;
+    const route = replay.map(point);
     let frames = "";
+    let score = 0;
+    let motion = "";
     let styles = `.replay-frame{opacity:0;animation-duration:${duration}s;animation-timing-function:steps(1,end);animation-iteration-count:infinite}`;
     replay.forEach((day, i) => {
-      const column = Math.floor((Date.parse(day.date) - firstWeek) / (7 * 86400000));
-      const row = new Date(day.date).getUTCDay();
+      const { x, y } = route[i];
       const start = (i / replay.length * 100).toFixed(5);
+      const hold = ((i + 0.4) / replay.length * 100).toFixed(5);
       const end = ((i + 1) / replay.length * 100).toFixed(5);
+      motion += `${start}%,${hold}%{transform:translate(${x}px,${y}px)}`;
+      score += day.count;
       styles += `.replay-${i}{animation-name:replay-${i}}@keyframes replay-${i}{0%{opacity:0}${start}%{opacity:1}${end}%{opacity:0}100%{opacity:0}}`;
-      frames += `<g class="replay-frame replay-${i}${i === replay.length - 1 ? " replay-latest" : ""}" data-replay-date="${day.date}" data-replay-count="${day.count}">`;
-      frames += `<rect x="${x0 + column * step - 3}" y="${y0 + row * step - 3}" width="${size + 6}" height="${size + 6}" rx="3" fill="none" stroke="${themes[theme].pink}" stroke-width="2"/>`;
-      frames += text(24, captionY, `${day.date} / ${day.count} ${day.count === 1 ? "contribution" : "contributions"}`, mobile ? 16 : 19, "pink");
-      frames += text(w - 24, captionY, `${String(i + 1).padStart(2, "0")} / ${String(replay.length).padStart(2, "0")}`, mobile ? 12 : 14, "muted", 'text-anchor="end"');
+      frames += `<g class="replay-frame replay-${i}${i === replay.length - 1 ? " replay-latest" : ""}" data-replay-date="${day.date}" data-replay-count="${day.count}" data-run-total="${score}">`;
+      frames += `<rect class="checkpoint" x="${x - size / 2 - 3}" y="${y - size / 2 - 3}" width="${size + 6}" height="${size + 6}" rx="2" fill="none" stroke="${t.pink}" stroke-width="2"/>`;
+      frames += text(24, captionY, day.date, mobile ? 19 : 23, "fg", 'font-weight="700"');
+      frames += text(24, captionY + 29, `+${day.count} ${day.count === 1 ? "contribution" : "contributions"}`, mobile ? 16 : 18, "lime");
+      frames += text(w - 24, captionY, `STAGE ${String(i + 1).padStart(2, "0")} / ${String(replay.length).padStart(2, "0")}`, mobile ? 13 : 15, "cyan", 'text-anchor="end"');
+      frames += text(w - 24, captionY + 29, `RUN TOTAL ${score}`, mobile ? 13 : 15, "pink", 'text-anchor="end"');
+      const segment = (w - 48) / replay.length;
+      for (let j = 0; j < replay.length; j++) {
+        frames += `<rect x="${24 + j * segment}" y="${captionY + 45}" width="${segment - 4}" height="4" fill="${t[j <= i ? "cyan" : "line"]}"/>`;
+      }
       frames += "</g>";
     });
-    styles += "@media(prefers-reduced-motion:reduce){.replay-frame{animation:none;opacity:0!important}.replay-latest{opacity:1!important}}";
-    body += `<style>${styles}</style>${frames}`;
+    motion += `100%{transform:translate(${route[0].x}px,${route[0].y}px)}`;
+    styles += `.arcade-runner{animation:packet-run ${duration}s linear infinite}.arcade-flame{animation:engine .3s steps(2,end) infinite}.checkpoint{animation:pickup 1.2s ease-in-out infinite}@keyframes packet-run{${motion}}@keyframes engine{50%{opacity:.25}}@keyframes pickup{50%{stroke:${t.cyan}}}`;
+    styles += "@media(prefers-reduced-motion:reduce){.replay-frame{animation:none;opacity:0!important}.replay-latest{opacity:1!important}.arcade-runner{display:none}.arcade-flame,.checkpoint{animation:none}}";
+    const trail = route.map(({ x, y }, i) => `${i ? "L" : "M"}${x} ${y}`).join(" ");
+    body += `<style>${styles}</style><path d="${trail}" fill="none" stroke="${t.cyan}" stroke-width="1" stroke-dasharray="2 5" opacity=".45"/>${frames}`;
+    // Original pixel spacecraft; all waypoints are actual calendar cells.
+    body += `<g class="arcade-runner" data-arcade-route="${route.map(({ x, y }) => `${x},${y}`).join(" ")}"><g transform="scale(${mobile ? 0.75 : 1})" shape-rendering="crispEdges"><path class="arcade-flame" d="M-13 -3h-5v6h5zM-20 -1h-3v2h3z" fill="${t.pink}"/><path d="M-11 -7h9v3h5v2h5v4H3v2h-5v3h-9v-4h-3v-6h3z" fill="${t.fg}"/><path d="M-9 -4h6v8h-6z" fill="${t.cyan}"/><path d="M-11 -9h5v3h-5zM-11 6h5v3h-5z" fill="${t.lime}"/></g></g>`;
   } else {
     body += text(24, captionY, "No contributions in this period.", mobile ? 16 : 19, "muted");
   }
-  body += text(24, mobile ? 184 : 233, "DAILY TOTALS / PRIVATE ACTIVITY ANONYMISED", mobile ? 11 : 12, "muted");
-  return svg(theme, w, mobile ? 202 : 250, "Daily contribution calendar with a chronological replay of the latest twelve active days. Public and opted-in private activity counts only; no private repository details.", body);
+  body += text(24, captionY + 76, "DAILY TOTALS / PRIVATE ACTIVITY ANONYMISED", mobile ? 11 : 12, "muted");
+  return svg(theme, w, captionY + 94, "Packet Run: an animated pixel spacecraft visits up to twelve recent active days on the real contribution calendar. Run total is the subtotal of those days, not the annual total. Public and opted-in private activity counts only; no private repository details.", body);
 }
 
 export function contact(theme, mobile = false) {
