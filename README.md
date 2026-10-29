@@ -147,7 +147,7 @@ The graphic above is conceptual. Addresses, hostnames, ports, credentials, servi
   <img src="./assets/activity-light.svg" alt="GitHub contributions over the last twelve months: totals, active days, streaks and weekly bars." width="100%">
 </picture>
 
-<sub>154 contributions · 35 active days · current streak: 0 days · longest streak: 2 days. As shown publicly through 2026-10-28.</sub>
+<sub>154 contributions · 35 active days · current streak: 0 days · longest streak: 2 days. As shown publicly through 2026-10-29.</sub>
 
 <picture>
   <source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="./assets/activity-grid-mobile-dark.svg">
