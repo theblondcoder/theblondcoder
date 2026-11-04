@@ -96,7 +96,7 @@ export function toolchain(theme, icons, mobile = false) {
   const groups = [
     { name: "01 / INTERFACE", names: ["React", "TypeScript", "JavaScript", "Tailwind", "PHP"], ids: ["react", "typescript", "javascript", "tailwindcss", "php"], accent: "lime" },
     { name: "02 / APIs + DATA", names: ["Node.js", "Express", "PostgreSQL", "MySQL", "Prisma"], ids: ["nodedotjs", "express", "postgresql", "mysql", "prisma"], accent: "cyan" },
-    { name: "03 / APPS + CODE", names: ["Kotlin", "Android", "Python", ".NET", "C++"], ids: ["kotlin", "android", "python", "dotnet", "cplusplus"], accent: "pink" },
+    { name: "03 / APPS + CODE", names: ["Kotlin", "Android", "Python", ".NET", "C++", "Java"], ids: ["kotlin", "android", "python", "dotnet", "cplusplus", "java"], accent: "pink" },
     { name: "04 / SYSTEMS", names: ["Linux", "Docker", "Git", "Wireshark", "Arduino"], ids: ["linux", "docker", "git", "wireshark", "arduino"], accent: "lime" },
     { name: "05 / OPS + NETWORKS", names: ["Bash", "PowerShell", "Kubernetes", "Vagrant", "Cisco console"], ids: ["bash", "powershell", "kubernetes", "vagrant", "ciscoconsole"], accent: "cyan" },
   ];
@@ -107,11 +107,12 @@ export function toolchain(theme, icons, mobile = false) {
     body += text(20, y + 28, g.name, 16, g.accent);
     const iconY = y + 57;
     const startX = 260;
-    const gap = 139;
+    const gap = g.ids.length === 6 ? 111 : 139;
+    const secondRowX = g.ids.length === 6 ? 35 : 110;
     g.ids.forEach((id, j) => {
       const icon = icons[id];
       if (!icon && !toolIcons[id]) throw new Error(`Missing tool icon: ${id}`);
-      const x = mobile ? (j < 3 ? 35 + j * 150 : 110 + (j - 3) * 150) : startX + j * gap;
+      const x = mobile ? (j < 3 ? 35 + j * 150 : secondRowX + (j - 3) * 150) : startX + j * gap;
       const iy = mobile ? y + (j < 3 ? 52 : 142) : iconY;
       const mark = toolIcons[id]
         ? `<g fill="none" stroke="${themes[theme][g.accent]}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${toolIcons[id]}</g>`

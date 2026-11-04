@@ -9,3 +9,5 @@ The Target, Blocks, CircleCheck, CodeXml and ArrowUpRight icons come from [Lucid
 The ops and networks row uses Lucide-derived terminal, package, box and network symbols to identify tools by function. These are not brand logos. The pixel spacecraft in Packet Run is original artwork.
 
 The LinkedIn and Gmail marks are from Simple Icons 11.15.0 (CC0-1.0); their pinned source URLs are recorded in `brand-icons.json`. They identify contact destinations and do not imply endorsement.
+
+The Java toolchain entry uses the original steaming coffee-cup mark from [Simple Icons 6.23.0](https://github.com/simple-icons/simple-icons/blob/6.23.0/icons/java.svg), distributed under [CC0-1.0](https://github.com/simple-icons/simple-icons/blob/6.23.0/LICENSE.md). The mark is recoloured to match the toolchain theme and is stored under `java` in `brand-icons.json`.

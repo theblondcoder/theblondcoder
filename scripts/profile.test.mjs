@@ -119,17 +119,25 @@ test("each technology label shares its icon centre in both layouts and themes", 
     for (const mobile of [false, true]) {
       const nodes = elements(parseFragment(toolchain(theme, icons, mobile))).map(attributes);
       const marks = nodes.filter((a) => a["data-tech"]);
-      assert.equal(marks.length, 25);
-      for (const id of ["bash", "powershell", "kubernetes", "vagrant", "ciscoconsole"]) {
+      assert.equal(marks.length, 26);
+      for (const id of ["java", "bash", "powershell", "kubernetes", "vagrant", "ciscoconsole"]) {
         assert.ok(marks.some((mark) => mark["data-tech"] === id), id);
       }
       for (const mark of marks) {
         const label = nodes.find((a) => a["data-label-for"] === mark["data-tech"]);
         const position = /translate\((\d+),(\d+)\)/.exec(mark.transform);
         assert.ok(label, mark["data-tech"]);
+        assert.ok(Number(position[1]) >= 0 && Number(position[1]) + 36 <= (mobile ? 480 : 960), mark["data-tech"]);
         assert.equal(Number(label.x), Number(position[1]) + 18);
         assert.equal(Number(label.y), Number(position[2]) + (mobile ? 58 : 61));
         assert.equal(label["text-anchor"], "middle");
+      }
+      if (mobile) {
+        const apps = ["kotlin", "android", "python", "dotnet", "cplusplus", "java"].map((id) => {
+          const mark = marks.find((a) => a["data-tech"] === id);
+          return /translate\((\d+),(\d+)\)/.exec(mark.transform).slice(1).map(Number);
+        });
+        assert.deepEqual(apps.slice(3).map(([x, y]) => [x, y - 90]), apps.slice(0, 3));
       }
     }
   }

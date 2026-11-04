@@ -57,7 +57,7 @@ These are technologies I've used or explored through study, projects and practic
   <source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="./assets/toolchain-mobile-dark.svg">
   <source media="(max-width: 600px)" srcset="./assets/toolchain-mobile-light.svg">
   <source media="(prefers-color-scheme: dark)" srcset="./assets/toolchain-dark.svg">
-  <img src="./assets/toolchain-light.svg" alt="Interface: React, TypeScript, JavaScript, Tailwind CSS, PHP. APIs and data: Node.js, Express, PostgreSQL, MySQL, Prisma. Apps and code: Kotlin, Android, Python, .NET, C++. Systems: Linux, Docker, Git, Wireshark, Arduino. Ops and networks: Bash, PowerShell, Kubernetes, Vagrant, Cisco console." width="100%">
+  <img src="./assets/toolchain-light.svg" alt="Interface: React, TypeScript, JavaScript, Tailwind CSS, PHP. APIs and data: Node.js, Express, PostgreSQL, MySQL, Prisma. Apps and code: Kotlin, Android, Python, .NET, C++, Java. Systems: Linux, Docker, Git, Wireshark, Arduino. Ops and networks: Bash, PowerShell, Kubernetes, Vagrant, Cisco console." width="100%">
 </picture>
 
 ## 03 / My projects
